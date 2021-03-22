@@ -1,56 +1,71 @@
-require 'card_shoe'
-require 'dealer'
-require 'player'
+require_relative 'card_shoe'
+require_relative 'dealer'
+require_relative 'player'
 
 class Game 
     def initialize(player, dealer, options)
         @card_shoe = CardShoe.new
         @player = player || Player.new
         @dealer = dealer || Dealer.new
-        @status = ""
         @round = 1
+        @turn = 1
         @winner = nil
-        @single_hand_game = options['single_hand']
+        @end_msg = ""
+        @single_hand_game = options[:single_hand] || false
     end
 
     def start
         resolve_round @round
         unless @single_hand_game
-            resolve_round @round += 1
+            resolve_round @round
         end
     end
 
     def resolve_round(round)
+        puts "Round #{round}"
+        puts "=============="
         setup_player_and_dealer
         resolve_first_turn
         unless @winner then
-            resolve_turn @turn += 1
+            resolve_turn @turn
+        end
+        @round += 1
+        @turn = 1
+        puts ""
+        puts ""
+        if @single_hand_game
+            exit
+        else
+            resolve_round @round
         end
     end
 
     def draw_card(u)
-        card = @card_shoe.draw_card!
+        card = @card_shoe.draw_card!(1)
         u.current_hand << card
-        u.update_current_score!
+        u.current_hand.flatten!
+        u.save
     end
 
-    def resolve_turn(round)
+    def resolve_turn(turn)
+        puts "Turn #{turn}"
 
-        if @player.can_draw? && @dealer.can_draw?
-            draw_card(@player)
-            draw_card(@dealer)
+        if @card_shoe.is_empty?
+            puts "Ran out of cards. Game is over"
+            exit
         end
 
-        if @player.can_draw? && !@dealer.can_draw?
+        if @player.can_draw?
             draw_card(@player)
+        end
+
+        if @dealer.can_draw?
+            draw_card(@dealer)
         end
 
         check_scores
 
-        if @winner
-            @end_msg = "#{@winner} is victorious!"
-            end_game
-        end
+        end_turn
 
     end
 
@@ -58,21 +73,22 @@ class Game
         pcs = @player.current_score
         dcs = @dealer.current_score
 
-        if @dealer.busts?
+        if @dealer.did_bust?
             @winner = "Player" if pcs <= 21
         end
 
-        if @player.busts?
+        if @player.did_bust?
             @winner = "Dealer"
         end
 
-        @winner = "Player" if !@player.busts? and pcs > dcs
-        @winner = "Dealer" if !@dealer.busts? and dcs > pcs
+        @winner = "Player" if !@player.did_bust? and pcs > dcs
+        @winner = "Dealer" if !@dealer.did_bust? and dcs > pcs
         @winner = "Push" if pcs == dcs
         
     end
 
     def resolve_first_turn
+        puts "Turn 1"
         pcs = @player.current_score
         dcs = @dealer.current_score
 
@@ -82,33 +98,36 @@ class Game
         if is_player_win
             @winner = "Player"
             @end_msg = "Congrats! Natural Blackjack"
-            @status = "win"
-            end_round
+            end_turn
             return
         end
 
         if is_tie
             @winner = "None"
-            @status = "draw"
             @end_msg = "It's a tie!"
-            end_round
+            end_turn
             return
         end
 
-        @round += 1
+        end_turn
+    
     end
 
-    def end_round
+    def end_turn
         puts @end_msg
-        puts "Winner is #{@winner}"
-        exit
+        puts "Player Score: #{@player.current_score}"
+        puts "Dealer Score: #{@dealer.current_score}"
+        puts "Winner: #{@winner}" if @winner
+        puts ""
+        @winner = nil
+        @turn += 1
     end
 
     def setup_player_and_dealer
         [@player, @dealer].each do |x|
-            cards = @card_shoe.draw!(2)
+            cards = @card_shoe.draw_card!(2)
             x.current_hand = cards
-            x.update_current_score!
+            x.save
         end
     end
 

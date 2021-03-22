@@ -1,7 +1,6 @@
-require "thor"
+require_relative "blackjack"
 
-class BlackjackCLI < Thor
-  # contents of the Thor class
-end
+is_single_hand = true if ARGV[0] == 'single_hand'
 
-BlackjackCLI.start(ARGV)
+game = Blackjack.new(single_hand: is_single_hand)
+game.start()

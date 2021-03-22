@@ -1,6 +1,6 @@
-class Player
+class User
 
-    attr_accessor :current_hand, :current_score
+    attr_accesor :current_hand, :current_score
 
     def initialize
         @current_hand = []
@@ -12,17 +12,5 @@ class Player
         @current_hand.each do |c|
           @current_score += c.value
         end
-    end
-
-    def save
-        update_current_score!
-    end
-
-    def can_draw?
-        @current_score <= 17
-    end
-
-    def did_bust?
-        @current_score > 21
     end
 end
