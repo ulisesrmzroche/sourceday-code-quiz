@@ -78,7 +78,12 @@ class Game
         end
 
         if @player.did_bust?
-            @winner = "Dealer"
+            @winner = "Dealer" unless @dealer.did_bust?
+        end
+
+        if @dealer.did_bust? and @player.did_bust?
+            @winner = "None"
+            @end_msg = "Both players busted"
         end
 
         @winner = "Player" if !@player.did_bust? and pcs > dcs
@@ -114,10 +119,10 @@ class Game
     end
 
     def end_turn
-        puts @end_msg
         puts "Player Score: #{@player.current_score}"
         puts "Dealer Score: #{@dealer.current_score}"
         puts "Winner: #{@winner}" if @winner
+        puts @end_msg
         puts ""
         @winner = nil
         @turn += 1
