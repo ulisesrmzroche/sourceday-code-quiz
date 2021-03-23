@@ -102,8 +102,8 @@ class Game
             @end_msg = "Both players busted"
         end
 
-        @winner = "Player" if !@player.did_bust? and pcs > dcs
-        @winner = "Dealer" if !@dealer.did_bust? and dcs > pcs
+        @winner = "Player" if !@player.did_bust? && pcs > dcs && !@player.can_draw?
+        @winner = "Dealer" if !@dealer.did_bust? && dcs > pcs && !@dealer.can_draw?
         @winner = "Push" if pcs == dcs and (!@player.did_bust? && !@dealer.did_bust?)
         
     end
