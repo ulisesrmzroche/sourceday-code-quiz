@@ -1,30 +1,32 @@
 require_relative 'card'
 
 class CardDeck
+    attr_accessor :cards
+
     def initialize
         @cards = self.generate_cards
     end
 
     def shuffle!
-      @cards.shuffle!
+      self.cards.shuffle!
     end
 
     def is_empty?
-      @cards.length == 0
+      self.cards.length == 0
     end
 
     def draw_cards!(x)
       unless self.is_empty?
-        cards = @cards.sample(x)
+        cards = self.cards.sample(x)
         cards.each do |card|
-          @cards.delete card
+          self.cards.delete card
         end
         cards
       end
     end
 
     def total_card_count
-      @cards.length
+      self.cards.length
     end
 
     def generate_cards

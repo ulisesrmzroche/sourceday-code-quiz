@@ -6,6 +6,7 @@ require_relative 'banners'
 class Game 
     include Banners
 
+    attr_accessor :card_shoe
     def initialize(player, dealer, options)
         @card_shoe = CardShoe.new
         @player = player || Player.new
@@ -15,22 +16,27 @@ class Game
         @winner = nil
         @end_msg = ""
         @single_hand_game = options[:single_hand] || false
+        @game_over = false
     end
 
     def start
         start_banner
-        resolve_round @round
+        until @game_over
+            resolve_round @round
+        end
+        end_game
     end
 
 
     def resolve_round(round)
+
         setup_player_and_dealer
 
         if @player.current_score == 0 || @dealer.current_score == 0
             return
         end
 
-        start_round_banner @round
+        start_round_banner round
 
         resolve_first_turn
         unless @winner != nil then
@@ -39,9 +45,7 @@ class Game
         end_round
 
         if @single_hand_game
-            exit
-        else
-            resolve_round @round
+            @game_over = true
         end
     end
 
@@ -62,10 +66,10 @@ class Game
         puts "Turn #{turn}"
         puts "------------"
 
-
         if @card_shoe.is_empty?
             puts "Ran out of cards. Game is over"
-            exit
+            @game_over = true
+            return
         end
 
         if @player.can_draw?
@@ -176,8 +180,14 @@ class Game
                     x.add_card_to_hand c
                 end
                 x.save
+            else
+                puts "Ran out of cards. Game Over"
+                @game_over = true
             end
         end
     end
 
+    def end_game
+        exit
+    end
 end

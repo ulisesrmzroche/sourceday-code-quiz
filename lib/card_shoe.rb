@@ -9,6 +9,10 @@ class CardShoe
         @did_shuffle = false
     end
 
+    def did_shuffle?
+        self.did_shuffle == true
+    end
+
     def generate_card_decks(x)
         card_decks = []
         x.times do
@@ -48,15 +52,14 @@ class CardShoe
 
     def draw_cards!(x)
         cards = []
-        if self.has_two_decks_remaining?
-            self.shuffle_decks
-        end
-
         if self.is_empty?
             return []
         end
 
-        # from a random deck pick two cards
+        if self.has_two_decks_remaining? && !self.did_shuffle?
+            self.shuffle_decks
+            return []
+        end
 
         target_card_deck = @card_decks.sample
         if target_card_deck.is_empty?
