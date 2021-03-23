@@ -86,10 +86,12 @@ class Game
 
         if @dealer.did_bust?
             @winner = "Player" if pcs <= 21
+            @end_msg = "Dealer bust!"
         end
 
         if @player.did_bust?
             @winner = "Dealer" unless @dealer.did_bust?
+            @end_msg = "Player bust!"
         end
 
         if @dealer.did_bust? and @player.did_bust?
