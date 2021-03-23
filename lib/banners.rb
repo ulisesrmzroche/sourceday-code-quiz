@@ -23,11 +23,9 @@ module Banners
 
     def end_round_banner
         puts ""
-        puts ""
     end
 
     def end_game_banner opts
-        puts ""
         puts "======================"
         puts "GAME END"
         puts "Total Rounds: #{opts[:round]}"
