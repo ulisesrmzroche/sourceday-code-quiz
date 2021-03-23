@@ -6,7 +6,8 @@ require_relative 'banners'
 class Game 
     include Banners
 
-    attr_accessor :card_shoe
+    attr_accessor :card_shoe, :winner, :round
+
     def initialize(player, dealer, options)
         @card_shoe = CardShoe.new
         @player = player || Player.new
