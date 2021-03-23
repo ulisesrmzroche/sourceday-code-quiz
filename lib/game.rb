@@ -60,11 +60,17 @@ class Game
         end
 
         if @player.can_draw?
+            puts "Player hits..."
             draw_card(@player)
+        else
+            puts "Player holds..."
         end
 
         if @dealer.can_draw?
+            puts "Dealer hits..."
             draw_card(@dealer)
+        else
+            puts "Dealer holds..."
         end
 
         check_scores
