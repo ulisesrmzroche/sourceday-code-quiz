@@ -107,6 +107,8 @@ class Game
         @turn = 1
         @player.clear_current_hand
         @dealer.clear_current_hand
+        @player.save
+        @dealer.save
         puts ""
         puts ""
     end
