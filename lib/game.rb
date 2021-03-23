@@ -108,8 +108,8 @@ class Game
         pcs = @player.current_score
         dcs = @dealer.current_score
 
-        if pcs == 0
-            end_turn
+        if pcs == 0 || dcs == 0
+            puts "changin deck"
         end
 
         is_player_win = pcs == 21 && dcs != 21
@@ -134,8 +134,8 @@ class Game
     end
 
     def end_turn
-        puts "Player Score: #{@player.current_score}"
-        puts "Dealer Score: #{@dealer.current_score}"
+        puts "Player Score: #{@player.current_score}" if @player.current_score > 0
+        puts "Dealer Score: #{@dealer.current_score}" if @dealer.current_score > 0
         puts "Winner: #{@winner}" if @winner
         puts @end_msg
         puts ""
