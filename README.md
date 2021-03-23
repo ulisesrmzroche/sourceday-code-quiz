@@ -12,19 +12,19 @@ To play a single-hand game: `bundle exec rake 'play[single_hand]'`
 Run tests with `bundle exec rake spec`
 ## SPEC
 
-[] - Create an application that mimics the game of black jack from the Ruby console based on the rules above.
+[x] - Create an application that mimics the game of black jack from the Ruby console based on the rules above.
 
-[] No uer input is required.
+[x] No uer input is required.
 
-[] Player should stop taking another card if total is 17 or higher.
+[x] -  Player should stop taking another card if total is 17 or higher.
 
-[] Game should print out card totals and who wins each round.
+[x] Game should print out card totals and who wins each round.
 
-[] Game should consist of a Card shoe with 6 total decks within. 
+[x] Game should consist of a Card shoe with 6 total decks within. 
 
-[] Card Shoe should be shuffled when only 2 total decks remain.
+[x] Card Shoe should be shuffled when only 2 total decks remain.
 
-[] Decks will consist of 52 cards. Cards Numbers and Suits should be represented as follows.
+[x] Decks will consist of 52 cards. Cards Numbers and Suits should be represented as follows.
 
 Initial Rules of the Game: 
 

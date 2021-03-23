@@ -130,7 +130,7 @@ class Game
     def setup_player_and_dealer
         [@player, @dealer].each do |x|
             cards = @card_shoe.draw_card!(2)
-            if cards != nil
+            if cards
                 cards.each do |c|
                     x.add_card_to_hand c
                 end
