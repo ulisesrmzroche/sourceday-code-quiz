@@ -29,6 +29,11 @@ class Game
 
 
     def resolve_round(round)
+        if @card_shoe.is_empty?
+            @game_over = true
+            @end_msg = "Ran out of cards. Game over"
+            return
+        end
 
         setup_player_and_dealer
 
@@ -50,6 +55,7 @@ class Game
     end
 
     def draw_card(u)
+
         cards = @card_shoe.draw_cards!(1)
         card = cards && cards.first
         if card
@@ -63,14 +69,15 @@ class Game
         if @winner
           return
         end
-        puts "Turn #{turn}"
-        puts "------------"
 
         if @card_shoe.is_empty?
-            puts "Ran out of cards. Game is over"
             @game_over = true
+            @end_msg = "Ran out of cards. Game over"
             return
         end
+
+        puts "Turn #{turn}"
+        puts "------------"
 
         if @player.can_draw?
             puts "Player hits..."
@@ -180,14 +187,13 @@ class Game
                     x.add_card_to_hand c
                 end
                 x.save
-            else
-                puts "Ran out of cards. Game Over"
-                @game_over = true
             end
         end
     end
 
     def end_game
+        puts "GAME END"
+        puts @end_msg
         exit
     end
 end
