@@ -42,8 +42,11 @@ class Game
 
     def draw_card(u)
         cards = @card_shoe.draw_cards!(1)
-        u.add_card_to_hand card if cards.first
-        u.save
+        card = cards.first
+        if card
+            u.add_card_to_hand card
+            u.save
+        end
     end
 
     def resolve_turn(turn)
