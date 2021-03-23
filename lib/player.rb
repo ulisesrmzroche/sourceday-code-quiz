@@ -22,7 +22,7 @@ class Player
     end
 
     def can_draw?
-        @current_score <= 17
+        @current_score < 17
     end
 
     def did_bust?
