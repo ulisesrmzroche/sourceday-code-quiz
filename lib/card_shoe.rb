@@ -49,7 +49,7 @@ class CardShoe
     def draw_cards!(x)
         cards = []
         if self.has_two_decks_remaining?
-            shuffle_decks
+            self.shuffle_decks
         end
 
         if self.is_empty?
