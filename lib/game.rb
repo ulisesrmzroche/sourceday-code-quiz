@@ -99,7 +99,7 @@ class Game
 
         @winner = "Player" if !@player.did_bust? and pcs > dcs
         @winner = "Dealer" if !@dealer.did_bust? and dcs > pcs
-        @winner = "Push" if pcs == dcs
+        @winner = "Push" if pcs == dcs and (!@player.did_bust? && !@dealer.did_bust?)
         
     end
 
