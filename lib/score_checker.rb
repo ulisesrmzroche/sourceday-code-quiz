@@ -1,4 +1,5 @@
 module ScoreChecker
+
     def get_winner(player, dealer, turn)
         pcs = player.current_score
         dcs = dealer.current_score
