@@ -19,11 +19,11 @@ class Game
 
     def start
         start_banner
-        resolve_round
+        resolve_round @round
     end
 
 
-    def resolve_round
+    def resolve_round(round)
         setup_player_and_dealer
 
         if @player.current_score == 0 || @dealer.current_score == 0
@@ -31,8 +31,8 @@ class Game
         end
 
         start_round_banner @round
-        resolve_first_turn
 
+        resolve_first_turn
         unless @winner != nil then
             resolve_turn @turn
         end
@@ -41,7 +41,7 @@ class Game
         if @single_hand_game
             exit
         else
-            resolve_round
+            resolve_round @round
         end
     end
 

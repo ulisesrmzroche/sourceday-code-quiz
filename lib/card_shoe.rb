@@ -36,14 +36,14 @@ class CardShoe
     end
 
     def has_two_decks_remaining?
-      @card_decks.length === 2
+      @card_decks.length == 2
     end
 
     def shuffle_decks
       @card_decks.each do |deck|
         deck.shuffle!
-        @did_shuffle = true
       end
+       @did_shuffle = true
     end
 
     def draw_cards!(x)
