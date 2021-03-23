@@ -25,16 +25,15 @@ class Game
         puts "Round #{round}"
         puts "=============="
         setup_player_and_dealer
+
         resolve_first_turn
+
         unless @winner then
             resolve_turn @turn
         end
-        @round += 1
-        @turn = 1
-        @player.clear_current_hand
-        @dealer.clear_current_hand
-        puts ""
-        puts ""
+
+        end_round
+
         if @single_hand_game
             exit
         else
@@ -103,14 +102,19 @@ class Game
         
     end
 
+    def end_round
+        @round += 1
+        @turn = 1
+        @player.clear_current_hand
+        @dealer.clear_current_hand
+        puts ""
+        puts ""
+    end
+
     def resolve_first_turn
         puts "Turn 1"
         pcs = @player.current_score
         dcs = @dealer.current_score
-
-        if pcs == 0 || dcs == 0
-            puts "changin deck"
-        end
 
         is_player_win = pcs == 21 && dcs != 21
         is_tie = pcs == 21 && dcs == 21
