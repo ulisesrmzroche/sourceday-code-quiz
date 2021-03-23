@@ -197,6 +197,5 @@ class Game
         puts "GAME END"
         puts @end_msg
         puts "Total Rounds: #{@round}"
-        exit
     end
 end

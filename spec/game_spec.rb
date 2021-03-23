@@ -4,7 +4,6 @@ require 'player'
 
 RSpec.describe Game do 
 
-
     before :each do
         @dealer = Dealer.new
         @player = Player.new
