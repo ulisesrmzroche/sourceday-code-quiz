@@ -23,9 +23,7 @@ class Game
 
     def start
         start_banner @options
-        until @game_over
-            resolve_round @round
-        end
+        resolve_round @round until @game_over
         end_game
     end
 
@@ -39,15 +37,12 @@ class Game
 
         setup_player_and_dealer
 
-        if @player.current_score == 0 || @dealer.current_score == 0
-            return
-        end
+        return if @player.current_score == 0 || @dealer.current_score == 0
 
         start_round_banner round
-        until @winner
-            resolve_turn @turn
-        end
+        resolve_turn @turn until @winner
         end_round
+
         if @single_hand_game
             @game_over = true
             @round = 1
@@ -65,9 +60,7 @@ class Game
     end
 
     def resolve_turn(turn)
-        if @winner
-          return
-        end
+        return if @winner
 
         if @card_shoe.is_empty?
             @game_over = true
@@ -123,7 +116,7 @@ class Game
                 @end_msg = "Player bust!"
             end
 
-            if @dealer.did_bust? and @player.did_bust?
+            if @dealer.did_bust? && @player.did_bust?
                 @winner = "None"
                 @end_msg = "Both players busted"
             end
