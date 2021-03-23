@@ -54,6 +54,7 @@ class Game
     def resolve_turn(turn)
         puts "Turn #{turn}"
 
+
         if @card_shoe.is_empty?
             puts "Ran out of cards. Game is over"
             exit
@@ -107,6 +108,10 @@ class Game
         pcs = @player.current_score
         dcs = @dealer.current_score
 
+        if pcs == 0
+            end_turn
+        end
+
         is_player_win = pcs == 21 && dcs != 21
         is_tie = pcs == 21 && dcs == 21
 
@@ -142,7 +147,7 @@ class Game
     def setup_player_and_dealer
         [@player, @dealer].each do |x|
             cards = @card_shoe.draw_cards!(2)
-            if cards
+            if cards && cards.length == 2
                 cards.each do |c|
                     x.add_card_to_hand c
                 end
