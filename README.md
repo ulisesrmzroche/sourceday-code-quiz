@@ -2,14 +2,13 @@
 
 ## Setup
 
-`bundle install`
+1. `bundle install`
 
 ## Running the game
 
-To play a game: `bundle exec rake play`
+To play a full game: `bundle exec rake play`
 
-To play a single-hand game: `bundle exec rake 'play[single_hand]'`
-
+To play a single-hand game (1 round): `bundle exec rake 'play[single_hand]'`
 
 ## SPEC
 
