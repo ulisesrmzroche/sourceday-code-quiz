@@ -23,7 +23,7 @@ class Player
     end
 
     def did_bust?
-        @current_score > 21
+        @current_score > 21 && !self.has_soft_hand?
     end
 
     def add_card_to_hand(card)

@@ -56,6 +56,19 @@ RSpec.describe Player do
         expect(@player.has_soft_hand?).to be true
     end
 
+    it "current hand is 'soft' then player should not bust" do
+        @player.current_hand = [
+          Card.new("3", 's'),
+          Card.new("A", 's'),
+        ]
+        @player.save
+        @player.add_card_to_hand Card.new("10", "d")
+        @player.save
+        expect(@player.did_bust?).to be false
+    end
+
+    pending "current hand is 'soft' then max score is 21"
+
     it "current hand should be considered 'hard' unlesss holding an ace valued as 11" do
         @player.current_hand = [
           Card.new("8", 'd'),
