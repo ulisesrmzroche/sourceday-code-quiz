@@ -8,7 +8,7 @@ RSpec.describe Game do
   before :each do
     @dealer = Dealer.new
     @player = Player.new
-    @game = Game.new(@player, @dealer, { single_hand: true })
+    @game = Game.new({ single_hand: true })
     allow($stdout).to receive(:write)
   end
 
@@ -17,7 +17,7 @@ RSpec.describe Game do
   end
 
   it 'should end at round 1 given single hand game' do
-    g = Game.new(@player, @dealer, { single_hand: true })
+    g = Game.new({ single_hand: true })
     g.start
     expect(@game.round).to eq 1
   end

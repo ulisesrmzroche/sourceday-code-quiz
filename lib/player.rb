@@ -20,6 +20,15 @@ class Player
     update_current_score!
   end
 
+  def draw_card_from_card_shoe(card_shoe)
+    cards = card_shoe.draw_cards(1)
+    card = cards&.first
+    return unless card
+
+    add_card_to_hand card
+    puts "=> #{card.rank}#{card.suit}"
+  end
+
   def can_draw?
     @current_score < 17
   end

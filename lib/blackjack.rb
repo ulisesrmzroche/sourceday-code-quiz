@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'dealer'
-require_relative 'player'
 require_relative 'game'
 
 # Blackjack accepts an array of options
@@ -10,7 +8,7 @@ require_relative 'game'
 class Blackjack
   def initialize(options = [])
     @game = Game.new({
-                       single_hand: options.find('single_hand') ? true : false
+                       single_hand: options.include?('single_hand') ? true : false
                      })
   end
 

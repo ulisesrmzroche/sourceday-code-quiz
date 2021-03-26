@@ -52,15 +52,6 @@ class Game
     end
   end
 
-  def draw_card(u)
-    cards = @card_shoe.draw_cards(1)
-    card = cards&.first
-    if card
-      u.add_card_to_hand card
-      u.save
-      puts "=> #{card.rank}#{card.suit}"
-    end
-  end
 
   def resolve_turn(turn)
     return if @winner
@@ -78,14 +69,16 @@ class Game
     else
       if @player.can_draw?
         puts 'Player hits...'
-        draw_card(@player)
+        @player.draw_card_from_card_shoe @card_shoe
+        @player.save
       else
         puts 'Player holds...'
       end
 
       if @dealer.can_draw?
         puts 'Dealer hits...'
-        draw_card(@dealer)
+        @dealer.draw_card_from_card_shoe @card_shoe
+        @dealer.save
       else
         puts 'Dealer holds...'
       end
@@ -124,12 +117,7 @@ class Game
 
   def setup_player_and_dealer
     [@player, @dealer].each do |user|
-      cards = @card_shoe.draw_cards(2)
-      next unless cards && cards.length == 2
-
-      cards.each do |c|
-        user.add_card_to_hand c
-      end
+      user.draw_card_from_card_shoe @card_shoe
       user.save
     end
   end

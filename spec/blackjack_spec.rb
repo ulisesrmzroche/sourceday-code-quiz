@@ -3,15 +3,9 @@
 require 'blackjack'
 
 RSpec.describe Blackjack do
-  it 'should have a Player' do
+  it 'should have a Game' do
     bj = Blackjack.new
-    expect(bj.instance_variable_get(:@dealer)).to_not be_nil
-    expect(bj.instance_variable_get(:@dealer)).to be_a Player
-  end
-
-  it 'should have a Dealer' do
-    bj = Blackjack.new
-    expect(bj.instance_variable_get(:@dealer)).to_not be_nil
-    expect(bj.instance_variable_get(:@dealer)).to be_a Dealer
+    expect(bj.instance_variable_get(:@game)).to_not be_nil
+    expect(bj.instance_variable_get(:@game)).to be_a Game
   end
 end
