@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require_relative './spinner'
 module Banners
+  include Spinner
   def start_banner(options)
     puts ''
     puts '======== BLACKJACK! ========='
@@ -46,21 +48,5 @@ module Banners
     puts "Turn #{turn}"
     puts '------------'
     spinner_indicator 10
-  end
-
-  def spinner_indicator(time)
-    # Prints a text-based "spinner" element while work occurs.
-    spinner = Enumerator.new do |e|
-      loop do
-        e.yield '|'
-        e.yield '/'
-        e.yield '-'
-        e.yield '\\'
-      end
-    end
-    1.upto(time) do |_i|
-      printf("\r %s", spinner.next)
-      sleep(0.1)
-    end
   end
 end
