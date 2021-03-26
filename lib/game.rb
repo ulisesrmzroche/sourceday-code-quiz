@@ -52,7 +52,6 @@ class Game
     end
   end
 
-
   def resolve_turn(turn)
     return if @winner
 
@@ -65,7 +64,7 @@ class Game
     start_turn_banner turn
 
     if turn == 1
-      check_scores turn
+      @winner = get_winner(@player, @dealer, @turn)
     else
       if @player.can_draw?
         puts 'Player hits...'
@@ -82,13 +81,9 @@ class Game
       else
         puts 'Dealer holds...'
       end
-      check_scores turn
+      @winner = get_winner(@player, @dealer, @turn)
     end
     end_turn
-  end
-
-  def check_scores(turn)
-    @winner = get_winner(@player, @dealer, turn)
   end
 
   def end_round
