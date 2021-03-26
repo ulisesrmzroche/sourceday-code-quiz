@@ -123,14 +123,14 @@ class Game
   end
 
   def setup_player_and_dealer
-    [@player, @dealer].each do |x|
+    [@player, @dealer].each do |user|
       cards = @card_shoe.draw_cards!(2)
       next unless cards && cards.length == 2
 
       cards.each do |c|
-        x.add_card_to_hand c
+        user.add_card_to_hand c
       end
-      x.save
+      user.save
     end
   end
 
