@@ -50,7 +50,7 @@ class CardShoe
     @did_shuffle = true
   end
 
-  def draw_cards!(x)
+  def draw_cards!(num_cards)
     cards = []
     return [] if is_empty?
 
@@ -64,6 +64,6 @@ class CardShoe
       @card_decks.delete target_card_deck
       target_card_deck = @card_decks.sample
     end
-    target_card_deck.draw_cards!(x)
+    target_card_deck.draw_cards!(num_cards)
   end
 end
