@@ -12,10 +12,10 @@ class Game
 
   attr_accessor :card_shoe, :winner, :round
 
-  def initialize(player, dealer, options)
+  def initialize(options)
     @card_shoe = CardShoe.new
-    @player = player || Player.new
-    @dealer = dealer || Dealer.new
+    @player = Player.new
+    @dealer = Dealer.new
     @round = 1
     @turn = 1
     @winner = nil
