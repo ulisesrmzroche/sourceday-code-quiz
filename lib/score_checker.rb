@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # TODO: This should be refactored with a State Machine
 module ScoreChecker
   def get_winner(player, dealer, turn)
