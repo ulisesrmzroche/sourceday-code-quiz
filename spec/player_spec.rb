@@ -6,14 +6,17 @@ RSpec.describe Player do
   before :each do
     @player = Player.new
     @deck = CardDeck.new
+    @card_shoe = CardShoe.new
   end
 
   it 'should not add cards to hand if total is 17 or higher' do
     deck = CardDeck.new
     p = Player.new
-    p.current_score = 17
-    card = deck.draw_cards(1)
-    p.add_card_to_hand(card)
+    p.add_card_to_hand(Card.new('Q', 's'))
+    p.add_card_to_hand(Card.new('7', 's'))
+    p.save
+    p.add_card_to_hand(Card.new('2', 's'))
+    p.save
     expect(p.current_score).to eq(17)
   end
 
@@ -54,7 +57,7 @@ RSpec.describe Player do
     @player.save
     @player.add_card_to_hand Card.new('10', 'd')
     @player.save
-    expect(@player.has_soft_hand?).to be true
+    expect(@player.soft_hand?).to be true
   end
 
   it "current hand is 'soft' then player should not bust" do
@@ -78,6 +81,6 @@ RSpec.describe Player do
     @player.save
     @player.add_card_to_hand Card.new('A', 'd')
     @player.save
-    expect(@player.has_soft_hand?).to be false
+    expect(@player.soft_hand?).to be false
   end
 end

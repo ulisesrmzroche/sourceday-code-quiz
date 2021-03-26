@@ -18,16 +18,6 @@ class CardDeck
     @cards.length.zero?
   end
 
-  def draw_cards(num_cards)
-    return if empty?
-
-    drawn_cards = @cards.sample(num_cards)
-    drawn_cards.each do |card|
-      @cards.delete card
-    end
-    drawn_cards
-  end
-
   def total_card_count
     cards.length
   end

@@ -28,61 +28,55 @@ class Game
   def start
     start_banner @options
     resolve_round @round until @game_over
-    end_game
+    exit_game
+  end
+
+  def end_game(options = {})
+    @game_over = true
+    puts options[:msg]
+    puts ''
   end
 
   def resolve_round(round)
-    if @card_shoe.empty?
-      @game_over = true
-      @end_msg = 'Ran out of cards. Game over'
-      return
-    end
-
-    setup_player_and_dealer
-
-    return if @player.current_score.zero? || @dealer.current_score.zero?
+    return end_game msg: 'Ran out of cards. Game over' if @card_shoe.empty?
 
     start_round_banner round
     resolve_turn @turn until @winner
     end_round
 
-    if @single_hand_game
-      @game_over = true
-      @round = 1
-    end
+    return end_game msg: 'Single Hand Game' if @single_hand_game
   end
 
   def resolve_turn(turn)
-    return if @winner
-
-    if @card_shoe.empty?
-      @game_over = true
-      @end_msg = 'Ran out of cards. Game over'
-      return
-    end
+    return end_game msg: 'Ran out of cards. Game over' if @card_shoe.empty?
 
     start_turn_banner turn
 
     if turn == 1
-      @winner = get_winner(@player, @dealer, @turn)
+      [@player, @dealer].each do |user|
+        user.draw_cards_from_card_shoe 2, @card_shoe
+        user.save
+      end 
+      return if @player.current_score.zero? || @dealer.current_score.zero?
     else
       if @player.can_draw?
         puts 'Player hits...'
-        @player.draw_card_from_card_shoe @card_shoe
+        @player.draw_cards_from_card_shoe 1, @card_shoe
         @player.save
       else
         puts 'Player holds...'
       end
-
+  
       if @dealer.can_draw?
         puts 'Dealer hits...'
-        @dealer.draw_card_from_card_shoe @card_shoe
+        @dealer.draw_cards_from_card_shoe 1, @card_shoe
         @dealer.save
       else
         puts 'Dealer holds...'
       end
-      @winner = get_winner(@player, @dealer, @turn)
     end
+
+    @winner = get_winner(@player, @dealer, @turn)
     end_turn
   end
 
@@ -110,14 +104,7 @@ class Game
     @end_msg = ''
   end
 
-  def setup_player_and_dealer
-    [@player, @dealer].each do |user|
-      user.draw_card_from_card_shoe @card_shoe
-      user.save
-    end
-  end
-
-  def end_game
+  def exit_game
     end_game_banner({
                       round: @round
                     })
