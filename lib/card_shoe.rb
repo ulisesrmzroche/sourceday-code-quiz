@@ -15,9 +15,9 @@ class CardShoe
     did_shuffle == true
   end
 
-  def generate_card_decks(x)
+  def generate_card_decks(num_cards)
     card_decks = []
-    x.times do
+    num_cards.times do
       deck = CardDeck.new
       deck.shuffle!
       card_decks << deck
