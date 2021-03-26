@@ -14,6 +14,12 @@ or
 To play a full game: `bundle exec rake play`
 To play a single-hand game (1 round): `bundle exec rake 'play[single_hand]'`
 
+## TODO
+
+Because this is an interview project, there were time constraints so that this project wouldn't stop the process. I had the functionality complete in about a day (I stayed up pretty late), and have been making refactorings since then as I see them.
+
+What I would like to do in a future draft is to keep running it through Rubocop. Because I am on an apple m1, the ruby linter on vscode keeps breaking the editor. I would run rubocop with a github action, so that it points it out there and I dont have to lint locally.
+
 ## SPEC
 
 Run tests with `bundle exec rake spec`
