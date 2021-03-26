@@ -22,7 +22,9 @@ Because this is an interview project, there were time constraints so that this p
 
 - [] Lint with Rubucop: What I would like to do in a future draft is to keep running it through Rubocop. Because I am on an apple m1, the ruby linter on vscode keeps breaking the editor. I would run rubocop with a github action, so that it points it out there and I dont have to lint locally. If I could do the project again, I'd be writing code against a linter so that it would alert me of code smeells and ugly code before I save it.
 
-- [ ] Refactor test suite. The test suite needs to be refactored. It could be using factories instead of raw instantiation. There are also some weak tests that were left as placeholders. 
+- [ ] Refactor test suite. The test suite needs to be refactored. It could be using factories instead of raw instantiation. There are also some weak tests that were left as placeholders.
+
+- [] Player should draw card like this `player.draw_cards_from_shoe(2, shoe). This should update the card shoe so that the cards drawn are not in the shoe anymore
 
 ## SPEC
 
@@ -36,7 +38,7 @@ Run tests with `bundle exec rake spec`
 
 - [x] Game should print out card totals and who wins each round.
 
-- [x] Game should consist of a Card shoe with 6 total decks within. 
+- [x] Game should consist of a Card shoe with 6 total decks within.
 
 - [x] Card Shoe should be shuffled when only 2 total decks remain.
 
