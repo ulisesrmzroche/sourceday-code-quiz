@@ -1,24 +1,24 @@
+# frozen_string_literal: true
+
 require 'game'
 require 'dealer'
 require 'player'
 
-RSpec.describe Game do 
+RSpec.describe Game do
+  before :each do
+    @dealer = Dealer.new
+    @player = Player.new
+    @game = Game.new(@player, @dealer, { single_hand: true })
+    allow($stdout).to receive(:write)
+  end
 
-    before :each do
-        @dealer = Dealer.new
-        @player = Player.new
-        @game = Game.new(@player, @dealer, { single_hand: true })
-        allow($stdout).to receive(:write)
-    end
+  it 'should start without a winner' do
+    expect(@game.winner).to be_nil
+  end
 
-    it "should start without a winner" do
-        expect(@game.winner).to be_nil
-    end
-
-    it "should end at round 1 given single hand game" do
-        g = Game.new(@player, @dealer, { single_hand: true })
-        g.start
-        expect(@game.round).to eq 1
-    end
-
+  it 'should end at round 1 given single hand game' do
+    g = Game.new(@player, @dealer, { single_hand: true })
+    g.start
+    expect(@game.round).to eq 1
+  end
 end

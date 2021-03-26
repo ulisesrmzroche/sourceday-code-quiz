@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
-gem 'thor'
-gem 'rspec'
 gem 'pry'
 gem 'rake'
-gem 'rubocop'
 gem 'reek'
+gem 'rspec'
+gem 'rubocop'
+gem 'thor'
