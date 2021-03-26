@@ -6,8 +6,8 @@ module CardDeckBuilder
     ranks = %w[A 2 3 4 5 6 7 8 9 10 J Q K]
     suits = %w[s h d c]
     suits.each do |suit|
-      ranks.size.times do |i|
-        stack << Card.new(ranks[i], suit)
+      ranks.size.times do |rank|
+        stack << Card.new(ranks[rank], suit)
       end
     end
     stack
