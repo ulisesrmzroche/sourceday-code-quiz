@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require_relative './spinner'
+
+# This module prints out notices and alerts
 module Banners
   include Spinner
+
   def start_banner(options)
-    puts ''
-    puts '======== BLACKJACK! ========='
-    puts '============================='
-    puts ''
+    intro_banner
 
     if options[:single_hand]
       puts 'Playing a Single Hand Game'
@@ -16,6 +16,11 @@ module Banners
       puts 'Will shuffle shoe when only 2 card decks remaining'
     end
     puts ''
+  end
+
+  def intro_banner
+    puts '======== BLACKJACK! ========='
+    puts '============================='
     puts ''
   end
 
@@ -35,12 +40,23 @@ module Banners
     puts "Total Rounds: #{opts[:round]}"
   end
 
+  def print_scores(player, dealer)
+    puts "Player Score: #{player}" if player.positive?
+    puts "Dealer Score: #{dealer}" if dealer.positive?
+  end
+
+  def print_winner(winner, turn)
+    puts "Winner: #{winner} on turn #{turn}" if winner && turn
+  end
+
+  def print_message(msg)
+    puts msg if msg
+  end
+
   def end_turn_banner(opts)
-    puts ''
-    puts "Player Score: #{opts[:player_score]}" if (opts[:player_score]).positive?
-    puts "Dealer Score: #{opts[:dealer_score]}" if (opts[:dealer_score]).positive?
-    puts "Winner: #{opts[:winner]} on turn #{opts[:turn]}" if opts[:winner] && opts[:turn]
-    puts opts[:msg] if opts[:msg]
+    print_scores opts[:player_score], opts[:dealer_score]
+    print_scores opts[:winner]
+    print_message opts[:msg]
     puts ''
   end
 
