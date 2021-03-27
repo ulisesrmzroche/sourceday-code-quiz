@@ -18,13 +18,13 @@ To play a single-hand game (1 round): `bundle exec rake 'play[single_hand]'`
 
 Because this is an interview project, there were time constraints so that this project wouldn't stop the process. I had the functionality complete in about a day (I stayed up pretty late), and have been making refactorings since then as I see them.
 
-- [] The data structure for the card shoe is wrong. The card pool should not consist of a list of card decks, but instead of an array of all the cards from the card decks. This is why the logic for draw cards is more complex than it should be. Instead of just drawing two random cards from a single array, we draw two cards from a random array within an array - a 2d array.
+- [x] The data structure for the card shoe is wrong. The card pool should not consist of a list of card decks, but instead of an array of all the cards from the card decks. This is why the logic for draw cards is more complex than it should be. Instead of just drawing two random cards from a single array, we draw two cards from a random array within an array - a 2d array.
 
-- [] Lint with Rubucop: What I would like to do in a future draft is to keep running it through Rubocop. Because I am on an apple m1, the ruby linter on vscode keeps breaking the editor. I would run rubocop with a github action, so that it points it out there and I dont have to lint locally. If I could do the project again, I'd be writing code against a linter so that it would alert me of code smeells and ugly code before I save it.
+- [x] Lint with Rubucop: What I would like to do in a future draft is to keep running it through Rubocop. Because I am on an apple m1, the ruby linter on vscode keeps breaking the editor. I would run rubocop with a github action, so that it points it out there and I dont have to lint locally. If I could do the project again, I'd be writing code against a linter so that it would alert me of code smeells and ugly code before I save it.
 
 - [ ] Refactor test suite. The test suite needs to be refactored. It could be using factories instead of raw instantiation. There are also some weak tests that were left as placeholders.
 
-- [] Player should draw card like this `player.draw_cards_from_shoe(2, shoe). This should update the card shoe so that the cards drawn are not in the shoe anymore
+- [x] Player should draw card like this `player.draw_cards_from_shoe(2, shoe). This should update the card shoe so that the cards drawn are not in the shoe anymore
 
 ## SPEC
 
