@@ -1,30 +1,31 @@
 # frozen_string_literal: true
 
-# TODO: This should be refactored with a State Machine
+# TODO: This should be refactored into a class
 module ScoreChecker
   def get_winner(player, dealer, turn)
-    pcs = player.current_score
-    dcs = dealer.current_score
-
-    return get_first_turn_winner(player, dealer) if turn == 1
-
-    winner = 'Player' if dealer.did_bust? && (pcs <= 21)
-
-    winner = 'Dealer' if player.did_bust? && !dealer.did_bust?
-
-    winner = 'None' if dealer.did_bust? && player.did_bust?
-
-    winner = 'Player' if !player.did_bust? && pcs > dcs && !dealer.can_draw?
-    winner = 'Dealer' if !dealer.did_bust? && dcs > pcs && !player.can_draw?
-    winner = 'Push' if pcs == dcs && (!player.did_bust? && !dealer.did_bust?)
-
-    winner
+    return 'Player' if player_won?(player, dealer, turn)
+    return 'Dealer' if dealer_won?(player, dealer, turn)
+    return 'None' if both_busted?(player, dealer) || tied?(player, dealer)
+    return 'Push' if player.current_score == dealer.current_score && !both_busted?
   end
 
-  def get_first_turn_winner(pcs, dcs)
-    is_player_win = pcs == 21 && dcs != 21
-    is_tie = pcs == 21 && dcs == 21
-    'Player' if is_player_win
-    'None' if is_tie
+  def player_won?(player, dealer, turn)
+    dealer.did_bust? && (player.current_score <= 21) ||
+      !player.did_bust? && player.current_score > dealer.current_score && !dealer.can_draw? ||
+      player.current_score == 21 && dealer.current_score != 21 && turn == 1
   end
+
+  def dealer_won?(player, dealer, turn)
+    player.did_bust? && !dealer.did_bust? ||
+      !dealer.current_score > player.current_score && !player.can_draw?
+  end
+
+  def both_busted?(player, dealer)
+    dealer.did_bust? && player.did_bust?
+  end
+
+  def tied?(player, dealer)
+    player.current_score == 21 && dealer.current_score == 21
+  end
+
 end
