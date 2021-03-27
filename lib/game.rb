@@ -37,6 +37,7 @@ class Game
 
   def end_game(options = {})
     @game_over = true
+    @round = 1 if options[:round]
     puts options[:msg]
     puts ''
   end
@@ -48,7 +49,7 @@ class Game
     resolve_turn @turn until @winner
     end_round
 
-    return end_game msg: 'Single Hand Game' if single_hand_game?
+    end_game msg: 'Single Hand Game', round: 1 if single_hand_game?
   end
 
   def single_hand_game?
@@ -94,13 +95,13 @@ class Game
   end
 
   def end_round
-    reset_timers
+    setup_next_round
     clear_cards
     clear_game_state
     end_round_banner
   end
 
-  def reset_timers
+  def setup_next_round
     @round += 1
     @turn = 1
   end

@@ -6,7 +6,7 @@ module ScoreChecker
     return 'Player' if player_won?(player, dealer, turn)
     return 'Dealer' if dealer_won?(player, dealer, turn)
     return 'None' if both_busted?(player, dealer) || tied?(player, dealer)
-    return 'Push' if player.current_score == dealer.current_score && !both_busted?
+    return 'Push' if tied?(player, dealer) && !both_busted?(player, dealer) && turn == 1 && player.current_score == 21
   end
 
   def player_won?(player, dealer, turn)
@@ -17,7 +17,7 @@ module ScoreChecker
 
   def dealer_won?(player, dealer, turn)
     player.did_bust? && !dealer.did_bust? ||
-      !dealer.current_score > player.current_score && !player.can_draw?
+      !dealer.did_bust? && dealer.current_score > player.current_score && !player.can_draw?
   end
 
   def both_busted?(player, dealer)

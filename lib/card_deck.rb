@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require_relative 'card'
-
 require_relative 'card_deck_builder'
+
+# CardDeck
+# Returns an object representing a deck of cards
 class CardDeck
-  attr_accessor :cards
+  attr_reader :cards
 
   def initialize
     @cards = CardDeckBuilder.build
@@ -19,6 +21,6 @@ class CardDeck
   end
 
   def total_card_count
-    cards.length
+    @cards.length
   end
 end
