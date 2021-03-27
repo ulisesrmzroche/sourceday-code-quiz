@@ -54,8 +54,8 @@ class Game
   def single_hand_game?
     @single_hand_game == true
   end
-  
-  def draw_cards_for_user(user, num_cards)
+
+  def draw_cards_for_user(num_cards, user)
     if user.can_draw?
       puts "#{user.name} hits..."
       user.draw_cards_from_card_shoe num_cards, @card_shoe
@@ -74,7 +74,7 @@ class Game
     players.each do |player|
       draw_cards_for_user num_cards, player
     end
-    return if any_zero_scores? && first_turn?
+    return if zero_scores? && first_turn?
 
     @winner = get_winner(@player, @dealer, @turn)
     end_turn
@@ -88,11 +88,15 @@ class Game
     @player.current_score.zero? || @dealer.current_score.zero?
   end
 
+  def clear_game_state
+    @winner = nil
+    @end_msg = nil
+  end
+
   def end_round
     reset_timers
     clear_cards
-    @winner = nil
-    @end_msg = nil
+    clear_game_state
     end_round_banner
   end
 
