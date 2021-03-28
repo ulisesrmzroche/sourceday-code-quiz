@@ -1,5 +1,5 @@
 # sourceday-code-quiz
-
+<a href="https://codeclimate.com/github/ulisesrmzroche/rb-quiz-blackjack/maintainability"><img src="https://api.codeclimate.com/v1/badges/99bcab40b571fd4f86bb/maintainability" /></a>
 ## Setup
 
 1. `git clone` this repo
